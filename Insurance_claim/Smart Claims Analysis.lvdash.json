@@ -1,0 +1,1093 @@
+{
+  "datasets": [
+    {
+      "name": "98b333f0",
+      "displayName": "Claim Count by Type",
+      "queryLines": [
+        "select\n",
+        "  type,\n",
+        "  count(severity) as claim_count\n",
+        "from\n",
+        "  smart_claims_dev.`03_gold`.claim_insights\n",
+        "where\n",
+        "  to_date(claim_date) > :start_date\n",
+        "  and to_date(claim_date) < :end_date\n",
+        "group by\n",
+        "  type"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01T00:00:00.000"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2025-08-16T00:00:00.000"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "294be7b1",
+      "displayName": "loss_ratio_liability",
+      "queryLines": [
+        "SELECT\n",
+        "  0.71 AS loss_ratio"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2021-05-01"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ce8a3ca1",
+      "displayName": "Claim - vehicleAge",
+      "queryLines": [
+        "SELECT\n",
+        "  COUNT(*) AS count,\n",
+        "  make,\n",
+        "  model_year\n",
+        "FROM\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "GROUP BY\n",
+        "  make,\n",
+        "  model_year"
+      ]
+    },
+    {
+      "name": "eac405b3",
+      "displayName": "Claims - Frequency by Hour",
+      "queryLines": [
+        "SELECT\n",
+        "  hour as incident_hour,\n",
+        "  COUNT(*) AS incidents,\n",
+        "  SUM(injury) AS liability_amount,\n",
+        "  SUM(property) + SUM(vehicle) AS property_amount\n",
+        "FROM\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "GROUP BY\n",
+        "  hour\n",
+        "ORDER BY\n",
+        "  hour"
+      ]
+    },
+    {
+      "name": "4ed9ef43",
+      "displayName": "Claims - Summary",
+      "queryLines": [
+        "SELECT\n",
+        "  type as incident_type,\n",
+        "  severity as incident_severity,\n",
+        "  COUNT(severity) as count_severity\n",
+        "FROM\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "WHERE\n",
+        "  to_date(claim_date) > :start_date\n",
+        "  AND to_date(claim_date) < :end_date\n",
+        "GROUP BY\n",
+        "  type,\n",
+        "  severity"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2024-05-04T00:00:00.000"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "fba42bc3",
+      "displayName": "Claims - loss_ratio_property",
+      "queryLines": [
+        "SELECT\n",
+        "  0.58 AS loss_ratio"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2021-05-01"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "e932870b",
+      "displayName": "Claim - driverAge",
+      "queryLines": [
+        "select\n",
+        "  age as driver_age,\n",
+        "  count(*) as count\n",
+        "from\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "where\n",
+        "  age >= 14\n",
+        "  and age < 110\n",
+        "GROUP BY\n",
+        "  age\n",
+        "order by\n",
+        "  age"
+      ]
+    },
+    {
+      "name": "ba40e7fe",
+      "displayName": "Claims - loss_ratio",
+      "queryLines": [
+        "SELECT\n",
+        "  0.65 AS loss_ratio"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2021-05-01"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "eb80eff8",
+      "displayName": "Claims - Damage - Property vs Liability vs Event Type",
+      "queryLines": [
+        "select\n",
+        "  'liability damage' as type,\n",
+        "  type as incident_type,\n",
+        "  sum(injury) as amount\n",
+        "from\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "where\n",
+        "  to_date(claim_date) >= :start_date\n",
+        "  and to_date(claim_date) <= :end_date\n",
+        "group by\n",
+        "  type\n",
+        "UNION\n",
+        "select\n",
+        "  'property damage' as type,\n",
+        "  type as incident_type,\n",
+        "  sum(property) + sum(vehicle) as amount\n",
+        "from\n",
+        "  `smart_claims_dev`.`03_gold`.claim_insights\n",
+        "where\n",
+        "  to_date(claim_date) >= :start_date\n",
+        "  and to_date(claim_date) <= :end_date\n",
+        "group by\n",
+        "  type"
+      ],
+      "parameters": [
+        {
+          "displayName": "start_date",
+          "keyword": "start_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2015-01-01"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "displayName": "end_date",
+          "keyword": "end_date",
+          "dataType": "DATE",
+          "defaultSelection": {
+            "values": {
+              "dataType": "DATE",
+              "values": [
+                {
+                  "value": "2021-05-01"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "48b7de84",
+      "displayName": "Claim - geo",
+      "queryLines": [
+        "select\n",
+        "  *\n",
+        "from\n",
+        "  `smart_claims_dev`.`03_gold`.customer_claim_policy_telematics"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "name": "4f3bd390",
+      "displayName": "Analysis",
+      "layout": [
+        {
+          "widget": {
+            "name": "e9c687b2",
+            "multilineTextboxSpec": {
+              "lines": [
+                "# FSI Demo - Smart Claims Analysis\n",
+                "## Loss Overview"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 8,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "3fa477d2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4ed9ef43",
+                  "fields": [
+                    {
+                      "name": "incident_severity",
+                      "expression": "`incident_severity`"
+                    },
+                    {
+                      "name": "sum(count_severity)",
+                      "expression": "SUM(`count_severity`)"
+                    },
+                    {
+                      "name": "incident_type",
+                      "expression": "`incident_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Summary",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(count_severity)",
+                  "axis": {
+                    "title": "Count of Incident Type by Severity"
+                  },
+                  "displayName": "count(incident.severity)",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "incident_type",
+                  "axis": {
+                    "title": "Incident type"
+                  },
+                  "displayName": "Incident type",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "incident_severity",
+                  "displayName": "incident_severity",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Total Loss",
+                        "color": "#E92828"
+                      },
+                      {
+                        "value": "Major Damage",
+                        "color": "#FB8D3D"
+                      },
+                      {
+                        "value": "Minor Damage",
+                        "color": "#FFF380"
+                      },
+                      {
+                        "value": "Trivial Damage",
+                        "color": "#1acc92"
+                      }
+                    ]
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 6,
+            "height": 9
+          }
+        },
+        {
+          "widget": {
+            "name": "66acbfb2",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ce8a3ca1",
+                  "fields": [
+                    {
+                      "name": "model_year",
+                      "expression": "`model_year`"
+                    },
+                    {
+                      "name": "sum(count)",
+                      "expression": "SUM(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Incidents by Vehicle Age"
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#077A9D",
+                  "#FFAB00",
+                  "#00A972",
+                  "#FF3621",
+                  "#8BCAE7",
+                  "#AB4057",
+                  "#99DDB4",
+                  "#FCA4A1",
+                  "#919191",
+                  "#BF7080"
+                ],
+                "layout": "stack"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "model_year",
+                  "axis": {
+                    "title": "Vehicle Manufactured Year"
+                  },
+                  "displayName": "Vehicle Manufactured Year",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(count)",
+                  "axis": {
+                    "title": "Incident Count"
+                  },
+                  "displayName": "count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 16,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "002c5a72",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "eb80eff8",
+                  "fields": [
+                    {
+                      "name": "sum(amount)",
+                      "expression": "SUM(`amount`)"
+                    },
+                    {
+                      "name": "incident_type",
+                      "expression": "`incident_type`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Loss Ratio by Incident Type"
+              },
+              "version": 3,
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(amount)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "displayName": "Loss ratio"
+                },
+                "color": {
+                  "fieldName": "incident_type",
+                  "displayName": "incident_type",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Multi-vehicle Collision",
+                        "color": "#FFF380"
+                      },
+                      {
+                        "value": "Parked Car",
+                        "color": "#E92828"
+                      },
+                      {
+                        "value": "Vehicle Theft",
+                        "color": "#1acc92"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "b5d6f58e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "eac405b3",
+                  "fields": [
+                    {
+                      "name": "incident_hour",
+                      "expression": "`incident_hour`"
+                    },
+                    {
+                      "name": "sum(incidents)",
+                      "expression": "SUM(`incidents`)"
+                    },
+                    {
+                      "name": "sum(liability_amount)",
+                      "expression": "SUM(`liability_amount`)"
+                    },
+                    {
+                      "name": "sum(property_amount)",
+                      "expression": "SUM(`property_amount`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Frequency &amp; Severity by Hour of Day",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#002FB4"
+                ]
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "incident_hour",
+                  "displayName": "incident_hour",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "sum(incidents)",
+                      "displayName": "Sum of incidents"
+                    },
+                    {
+                      "fieldName": "sum(liability_amount)",
+                      "displayName": "Sum of liability_amount"
+                    },
+                    {
+                      "fieldName": "sum(property_amount)",
+                      "displayName": "Sum of property_amount"
+                    }
+                  ]
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "ec5ecca9",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e932870b",
+                  "fields": [
+                    {
+                      "name": "driver_age",
+                      "expression": "`driver_age`"
+                    },
+                    {
+                      "name": "sum(count)",
+                      "expression": "SUM(`count`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Driver Age Distribution",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#077A9D",
+                  "#FFAB00",
+                  "#00A972",
+                  "#FF3621",
+                  "#8BCAE7",
+                  "#AB4057",
+                  "#99DDB4",
+                  "#FCA4A1",
+                  "#919191",
+                  "#BF7080"
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "driver_age",
+                  "displayName": "driver_age",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(count)",
+                  "displayName": "Incident count",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 9,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "842d657b",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "48b7de84",
+                  "fields": [
+                    {
+                      "name": "ZIP_CODE",
+                      "expression": "`ZIP_CODE`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": "Location of Policies"
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  "#FCA4A1",
+                  "#FFAB00",
+                  "#00A972",
+                  "#FF3621",
+                  "#8BCAE7",
+                  "#AB4057",
+                  "#99DDB4",
+                  "#FCA4A1",
+                  "#919191",
+                  "#BF7080"
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "ZIP_CODE",
+                  "displayName": "ZIP_CODE",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "displayName": "Count of Records",
+                  "scale": {
+                    "type": "quantitative",
+                    "reverse": false
+                  }
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 20,
+            "width": 6,
+            "height": 6
+          }
+        },
+        {
+          "widget": {
+            "name": "4a462d36",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "ba40e7fe",
+                  "fields": [
+                    {
+                      "name": "loss_ratio",
+                      "expression": "`loss_ratio`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Loss Ratio",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "loss_ratio",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "44d9d27c",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "fba42bc3",
+                  "fields": [
+                    {
+                      "name": "loss_ratio",
+                      "expression": "`loss_ratio`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Property Loss Ratio",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "loss_ratio",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "840b42ff",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "294be7b1",
+                  "fields": [
+                    {
+                      "name": "loss_ratio",
+                      "expression": "`loss_ratio`"
+                    }
+                  ],
+                  "disaggregated": true
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Liability Loss Ratio",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "loss_ratio",
+                  "rowNumber": 0
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 2,
+            "y": 2,
+            "width": 2,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "174bff40",
+            "queries": [
+              {
+                "name": "dashboards/01f1af6804b91714adbcb2a8201078f9/datasets/01f1af6b25bf121f987aea4ca949d632_end_date",
+                "query": {
+                  "datasetName": "4ed9ef43",
+                  "fields": [
+                    {
+                      "name": "end_date",
+                      "expression": "`end_date`"
+                    },
+                    {
+                      "name": "end_date_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Date Range",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-date-range-picker",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "end_date",
+                    "queryName": "dashboards/01f1af6804b91714adbcb2a8201078f9/datasets/01f1af6b25bf121f987aea4ca949d632_end_date"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 0,
+            "width": 4,
+            "height": 1
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "13294e71",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "ffa476d3",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "04fadea9",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
